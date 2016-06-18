@@ -32,6 +32,10 @@ db.employees.update({}, {
     { multi: true }
 })
 
+db.employees.remove({
+    designation: { $exists: false } 
+})
+
 db.employees.update({
     name: "Harry Potter"
 }, {
