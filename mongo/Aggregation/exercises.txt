@@ -1,0 +1,3 @@
+1. Get the number of restaurants in each borough
+2. Get the number of restaurants in each zipcode
+3. Get the average score for each restaurant in Manhattan

@@ -1,0 +1,115 @@
+# good git book
+http://git-scm.com/book
+
+# Discard uncommitted changes in a specific file
+git checkout file_name
+
+# Clear everything not in repo
+git checkout -- .
+
+# A way to quickly move to the previous commit in a git branch. This also way for "deleting" last commit.
+git reset --hard HEAD~1
+# Move to the "next" commit, to the origin head.
+git reset --hard ORIG_HEAD
+
+# Move master branch to any other place
+git reset --hard other_branch_name
+git reset --hard 3k3k_commit_hash
+
+# Undo a commit and redo (simple scenario, forget to change sth)
+git commit -m 'initial commit'
+edit file
+git commit -a --amend
+
+# Undo a commit and redo (more advanced scenario, like removing files)
+# http://stackoverflow.com/questions/927358/git-undo-last-commit
+$ git commit ...
+$ git reset --soft HEAD^      (1)
+$ edit                        (2)
+$ git add ....                (3)
+$ git commit -c ORIG_HEAD     (4)
+
+# When in progress of developing something and you realized that it's better to do it in new branch.
+git checkout -b new_branch
+# you can as well use 'git stash', but branches are overall cheap and better express putting work on a side
+# http://codingkilledthecat.wordpress.com/2012/04/27/git-stash-pop-considered-harmful/
+
+# When moving file to different folder and renaming at the moment there is enough to by only one commit. First make 
+git mv file_name #and then edit file(s).
+
+# Check how code behaves on previous commit without playing with branches
+git checkout Head^
+#You are in 'detached HEAD' state. To go back:
+git checkout master
+
+# Revert all not committed changes. Do not delete new created files.
+$ git reset –hard HEAD
+
+# Remove from index (repository), file remains in folder
+git rm --cached file_name
+
+# Remove from repository and from folder
+git rm file_name
+
+
+# Commands for creating new repo
+do it always on github cause sharing and having backup is very important.
+git init # for only local temporary repository
+
+# Get deleted files into the staging area. If you run git add . these files won’t be put into the staging area to be marked as deleted on the next commit. Run:
+git add -u
+
+# Get just one file from another branch
+git checkout experiment -- app.js
+# Get just one file from any commit
+git checkout sha123 app.js
+
+# Checkout previous branch
+git checkout -
+
+# Pull data with rebase
+git pull --rebase
+# Make --rebase default
+git config --global --bool pull.rebase true
+
+# Run this every time before pushing a set of commits:
+git rebase -i @{u}
+
+# Many other
+git add -i
+git add -p
+git diff [--cached] file
+git blame
+
+#Show the last commit which message matches a regex
+$ git show :/fix
+# shows the last commit which has the word "fix" in its message
+$ git show :/^Merge
+# shows the last merge commit
+
+#Checkout a branch, rebase and merge to master
+$ git rebase HEAD feature && git rebase HEAD @{-2}
+
+# remove untracked files
+git clean -f 
+git clean -fd # with directories
+
+git commit --fixup=b92f2f0
+
+# View history of one file
+git log --follow -p [filename]
+git log -- [filename]
+gitk [filename]
+
+# Commit just one file
+git commit FileName -m 'commit msq'
+
+# Show my commits
+gitk --author="TO THE NEW" #your name, can be just first letters.
+
+# Rebase things from feature branch
+git rebase master feature-branch
+# We re on master and put feature-branch commits on top of current master branch
+
+# Show only x last commits by 'log' command (my 'ls' alias)
+git ls | tail -n 10
